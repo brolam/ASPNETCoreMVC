@@ -26,20 +26,7 @@ namespace WebApp
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/hello", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-
-                 endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("how are you? ");
-                });
-            });
+            app.UseFileServer();
         }
     }
 }
