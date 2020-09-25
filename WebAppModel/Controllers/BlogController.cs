@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebAppModel.Models;
 
 namespace WebAppModel.Controllers
 {
@@ -13,7 +14,7 @@ namespace WebAppModel.Controllers
         {
             _logger = logger;
         }
-        
+
         [Route("")]
         public IActionResult Index()
         {
@@ -23,11 +24,13 @@ namespace WebAppModel.Controllers
         [Route("{year:min(2000)}/{month:range(1,12)}/{key}")]
         public IActionResult Post(int year, int month, string key)
         {
-            ViewBag.Title = "My Blog post";
-            ViewBag.Posted = DateTime.Now;
-            ViewBag.Author = "Breno Marques";
-            ViewBag.Body = "My way";
-            return View();
+            var blogItem = new BlogItem(){
+                 Title = "My Blog post",
+                 Posted = DateTime.Now,
+                 Author = "Breno Marques",
+                 Body = "My way"
+            };
+            return View(blogItem);
         }
     }
 }
