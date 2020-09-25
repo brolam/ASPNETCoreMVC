@@ -14,7 +14,7 @@ namespace WebAppModel.Controllers
 
         public IActionResult Index()
         {
-            return new ContentResult { Content = "Blog posts" };;
+            return View();
         }
     }
 }
