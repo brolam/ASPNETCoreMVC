@@ -44,6 +44,7 @@ namespace WebAppModel.Controllers
         [HttpPost, Route("create")]
         public IActionResult Create(BlogItemDto blogItemDto)
         {
+            if ( ! ModelState.IsValid) return View();
             var blogItem = new BlogItem
             {
                 Title = blogItemDto.Title,
