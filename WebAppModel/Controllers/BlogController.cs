@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebAppModel.DataBase;
 using WebAppModel.Models;
 using WebAppModel.Models.Dtos;
 
@@ -9,10 +10,12 @@ namespace WebAppModel.Controllers
     [Route("blog")]
     public class BlogController : Controller
     {
+        private readonly BlogDbContext blogDbContext;
         private readonly ILogger<HomeController> _logger;
 
-        public BlogController(ILogger<HomeController> logger)
+        public BlogController(BlogDbContext blogDbContext, ILogger<HomeController> logger)
         {
+            this.blogDbContext = blogDbContext;
             _logger = logger;
         }
 
@@ -52,7 +55,9 @@ namespace WebAppModel.Controllers
                 Author = User.Identity.Name,
                 Posted = DateTime.Now
             };
-            return View(model: blogItem);
+            blogDbContext.BlogItems.Add(blogItem);
+            blogDbContext.SaveChanges();
+            return View(model: blogItemDto);
         }
     }
 }
