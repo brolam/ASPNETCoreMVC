@@ -32,5 +32,10 @@ namespace WebAppModel.Controllers
             };
             return View(blogItem);
         }
+
+        [Route("create")]
+        public IActionResult Create(){
+            return View();
+        }
     }
 }

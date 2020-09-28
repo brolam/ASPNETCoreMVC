@@ -1,0 +1,25 @@
+@model WebAppModel.Models.BlogItem
+@{
+    Layout = "_Layout";
+}
+
+<h1>Create Blog Post</h1>
+
+<fieldset>
+    @using (Html.BeginForm())
+    {
+        <p>
+            @Html.LabelFor(blogItem => blogItem.Title)
+            @Html.EditorFor(blogItem => blogItem.Title)
+        </p>
+
+        <p>
+            @Html.LabelFor(blogItem => blogItem.Body)
+            @Html.TextAreaFor(blogItem => blogItem.Body)
+        </p>
+
+        <p>
+            <button type="submit">Create Post</button>
+        </p>
+    }
+</fieldset>
