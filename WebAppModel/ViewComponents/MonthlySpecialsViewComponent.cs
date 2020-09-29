@@ -1,14 +1,23 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using WebAppModel.DataBase;
 
 namespace WebAppModel.ViewComponents
 {
     [ViewComponent]
     public class MonthlySpecialsViewComponent : ViewComponent
     {
-        public string Invoke()
+        private readonly BlogDbContext blogDbContext;
+
+        public MonthlySpecialsViewComponent(BlogDbContext blogDbContext)
         {
-            return "TODO: Show monthly sepecial";
+            this.blogDbContext = blogDbContext;
+        }
+        public IViewComponentResult Invoke()
+        {
+            var specials = blogDbContext.MonthlySpecials.ToArray();
+            return View(specials);
         }
     }
 }
