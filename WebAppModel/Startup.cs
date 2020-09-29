@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebAppModel.DataBase;
 using Microsoft.EntityFrameworkCore;
+using WebAppModel.Models;
 
 namespace WebAppModel
 {
@@ -20,6 +21,7 @@ namespace WebAppModel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<FormattingService>();
             services.AddControllersWithViews();
             services.AddDbContext<BlogDbContext>( options => options.UseInMemoryDatabase("this-is-just-test"));
         }
