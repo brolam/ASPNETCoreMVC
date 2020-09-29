@@ -1,0 +1,14 @@
+@model WebAppModel.Models.BlogItem
+<article class="blog-post">
+    <h1>
+        @Html.ActionLink(Model.Title, "Post", "Blog",
+            new { id = Model.Id }
+        )
+    </h1>
+    <div class="details">
+        Posted <span>@Model.Posted</span> by <span>@Model.Author</span>
+    </div>
+    <div class="content">
+        @Model.Body
+    </div>
+</article>
