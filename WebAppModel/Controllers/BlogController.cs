@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebAppModel.DataBase;
@@ -22,19 +23,17 @@ namespace WebAppModel.Controllers
         [Route("")]
         public IActionResult Index()
         {
-            return View();
+            var blobItems = blogDbContext.BlogItems.OrderByDescending(
+                blobItem => blobItem.Posted
+            ).ToArray();
+            return View(blobItems);
         }
 
-        [Route("{year:min(2000)}/{month:range(1,12)}/{key}")]
-        public IActionResult Post(int year, int month, string key)
+        [Route("post/{id}")]
+        public IActionResult Post(int id)
         {
-            var blogItem = new BlogItem()
-            {
-                Title = "My Blog post",
-                Posted = DateTime.Now,
-                Author = "Breno Marques",
-                Body = "My way"
-            };
+            var blogItem = blogDbContext.BlogItems.Find(id);
+            if ( blogItem == null ) return NotFound();
             return View(blogItem);
         }
 
@@ -57,7 +56,7 @@ namespace WebAppModel.Controllers
             };
             blogDbContext.BlogItems.Add(blogItem);
             blogDbContext.SaveChanges();
-            return View(model: blogItemDto);
+            return RedirectToAction("Post", "Blog", new {id = blogItem.Id});
         }
     }
 }
