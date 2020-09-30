@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebAppModel.DataBase;
@@ -55,13 +56,13 @@ namespace WebAppModel.Controllers
             return View(blogItem);
         }
 
-        [HttpGet, Route("create")]
+        [Authorize, HttpGet, Route("create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost, Route("create")]
+        [Authorize, HttpPost, Route("create")]
         public IActionResult Create(BlogItemDto blogItemDto)
         {
             if ( ! ModelState.IsValid) return View();
