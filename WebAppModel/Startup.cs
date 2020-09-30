@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using WebAppModel.DataBase;
 using Microsoft.EntityFrameworkCore;
 using WebAppModel.Models;
+using Microsoft.AspNetCore.Identity;
+using ExploreCalifornia.Models;
 
 namespace WebAppModel
 {
@@ -24,6 +29,11 @@ namespace WebAppModel
             services.AddTransient<FormattingService>();
             services.AddControllersWithViews();
             services.AddDbContext<BlogDbContext>( options => options.UseInMemoryDatabase("this-is-just-test"));
+            services.AddDbContext<IdentityDataContext>(
+                options => options.UseInMemoryDatabase("this-is-just-test")
+            );  
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDataContext>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
