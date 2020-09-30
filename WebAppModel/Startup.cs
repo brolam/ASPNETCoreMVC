@@ -10,7 +10,6 @@ using WebAppModel.DataBase;
 using Microsoft.EntityFrameworkCore;
 using WebAppModel.Models;
 using Microsoft.AspNetCore.Identity;
-using ExploreCalifornia.Models;
 
 namespace WebAppModel
 {
@@ -28,12 +27,12 @@ namespace WebAppModel
         {
             services.AddTransient<FormattingService>();
             services.AddControllersWithViews();
-            services.AddDbContext<BlogDbContext>( options => options.UseInMemoryDatabase("this-is-just-test"));
+            services.AddDbContext<BlogDbContext>(options => options.UseInMemoryDatabase("this-is-just-test"));
             services.AddDbContext<IdentityDataContext>(
                 options => options.UseInMemoryDatabase("this-is-just-test")
-            );  
+            );
             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityDataContext>(); 
+                .AddEntityFrameworkStores<IdentityDataContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,9 +50,8 @@ namespace WebAppModel
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //app.UseFileServer();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ExploreCalifornia.Models.Account
+namespace WebAppModel.Models.Account
 {
     public class RegisterViewModel
     {
